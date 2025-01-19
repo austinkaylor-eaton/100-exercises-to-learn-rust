@@ -11,26 +11,69 @@ pub struct Ticket {
 
 impl Ticket {
     pub fn new(title: String, description: String, status: String) -> Ticket {
-        if title.is_empty() {
-            panic!("Title cannot be empty");
-        }
-        if title.len() > 50 {
-            panic!("Title cannot be longer than 50 bytes");
-        }
-        if description.is_empty() {
-            panic!("Description cannot be empty");
-        }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 bytes");
-        }
-        if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
-        }
+        Self::title_is_empty(&title);
+        Self::title_length_greater_than_50(&title);
+        Self::description_is_empty(&description);
+        Self::description_length_greater_than_500(&description);
+        Self::status_incorrect(&status);
 
         Ticket {
             title,
             description,
             status,
+        }
+    }
+    
+    pub fn set_title(&mut self, new_title: String) {
+        Self::title_is_empty(&new_title);
+        Self::title_length_greater_than_50(&new_title);
+        self.title = new_title;
+    }
+    
+    pub fn set_description(&mut self, new_description: String) {
+        Self::description_is_empty(&new_description);
+        Self::description_length_greater_than_500(&new_description);
+        self.description = new_description;
+    }
+    
+    pub fn set_status(&mut self, new_status: String) {
+        Self::status_incorrect(&new_status);
+        self.status = new_status;
+    }
+
+    /// Checks if the status is one of the following:
+    ///     - "To-Do"
+    ///     - "In Progress"
+    ///     - "Done"
+    /// # Panics
+    /// - If that status isn't one of the above, this function panics
+    fn status_incorrect(status: &String) {
+        if status != "To-Do" && status != "In Progress" && status != "Done" {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
+    }
+
+    fn description_length_greater_than_500(description: &String) {
+        if description.len() > 500 {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+    }
+
+    fn description_is_empty(description: &String) {
+        if description.is_empty() {
+            panic!("Description cannot be empty");
+        }
+    }
+
+    fn title_length_greater_than_50(title: &String) {
+        if title.len() > 50 {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+    }
+
+    fn title_is_empty(title: &String) {
+        if title.is_empty() {
+            panic!("Title cannot be empty");
         }
     }
 
