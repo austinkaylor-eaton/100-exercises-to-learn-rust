@@ -1,10 +1,24 @@
+use std::env::var;
+use std::fs::FileTimes;
 // TODO: Given a static slice of integers, split the slice into two halves and
 //  sum each half in a separate thread.
 //  Do not allocate any additional memory!
 use std::thread;
 
 pub fn sum(slice: &'static [i32]) -> i32 {
-    todo!()
+    let middle = slice.len() / 2;
+    let halves = slice.split_at(middle);
+    let left_half = halves.0;
+    let right_half  = halves.1;
+    
+    let first_thread = thread::spawn(move || {
+        left_half.iter().sum::<i32>()
+    });
+    let second_thread = thread::spawn(move || {
+        right_half.iter().sum::<i32>()
+    });
+    
+    first_thread.join().unwrap() + second_thread.join().unwrap()
 }
 
 #[cfg(test)]
