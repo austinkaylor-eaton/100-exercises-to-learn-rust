@@ -12,10 +12,24 @@
 // `fibonacci(2)` to return `1`, and so on.
 pub fn fibonacci(n: u32) -> u32 {
     // TODO: implement the `fibonacci` function
-    //
+    let n = n as usize;
+    let mut numbers: Vec<u32> = vec![0, 1];
     // Hint: use a `Vec` to memoize the results you have already calculated
     // so that you don't have to recalculate them several times.
-    todo!()
+    // numbers.push(n);
+
+    // numbers.len() is 2 to start because it contains [0,1]
+    // 0 is passed in
+    // while 2 < 0 = false
+    // breaks out of the loop
+    // what should it return?
+    //      0 should be returned if n=0
+    //      1 should be returned if n=1
+    //      1 should be returned if n=2 
+    for i in 2..=n {
+        numbers.push(numbers[i-1] + numbers[i-2])
+    }
+    numbers[n]
 }
 
 #[cfg(test)]
