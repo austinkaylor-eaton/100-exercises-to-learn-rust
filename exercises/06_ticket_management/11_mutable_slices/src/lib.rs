@@ -1,5 +1,15 @@
-// TODO: Define a function named `squared` that raises all `i32`s within a slice to the power of 2.
+// TODO: Define a function named `squared` that raises all `i32`s 
+//  within a slice to the power of 2.
 //  The slice should be modified in place.
+
+use std::slice::SliceIndex;
+
+fn squared(mut slice: &mut [i32]) -> &[i32] {
+    for s in slice.iter_mut() {
+       *s *= *s;
+    }
+    slice
+}
 
 #[cfg(test)]
 mod tests {
