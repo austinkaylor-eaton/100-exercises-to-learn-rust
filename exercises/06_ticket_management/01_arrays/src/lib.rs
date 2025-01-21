@@ -1,30 +1,35 @@
 // TODO: Flesh out the `WeekTemperatures` struct and its method implementations to pass the tests.
 
+use crate::Weekday::Monday;
+
 pub struct WeekTemperatures {
-    // TODO
+    temperatures: [Option<i32>; 7],
 }
 
+#[repr(usize)]
 pub enum Weekday {
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-    Sunday,
+    Monday = 0_usize,
+    Tuesday = 1_usize,
+    Wednesday= 2_usize,
+    Thursday= 3_usize,
+    Friday = 4_usize,
+    Saturday = 5_usize,
+    Sunday = 6_usize,
 }
 
 impl WeekTemperatures {
     pub fn new() -> Self {
-        todo!()
+        WeekTemperatures{ 
+            temperatures: [None; 7],
+        }
     }
 
     pub fn get_temperature(&self, day: Weekday) -> Option<i32> {
-        todo!()
+        self.temperatures[day as usize] 
     }
 
     pub fn set_temperature(&mut self, day: Weekday, temperature: i32) {
-        todo!()
+        self.temperatures[day as usize] = Some(temperature)
     }
 }
 
